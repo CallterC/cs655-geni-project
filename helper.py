@@ -13,14 +13,13 @@ from time import sleep
 
 global_timeout = 200.0
 #passwrod range
-pw_range = ascii_lowercase + ascii_uppercase
+pw_range = " " +  ascii_lowercase + ascii_uppercase
 
 #decode a byte string received into list of payloads
 def decode_payload_into_list(payload, edge_start, edge_end, sep, encoding = "utf-8"):
-    #decode payload
-    payload = payload.decode(encoding)
     #check for payload integrity
     if(not payload.startswith(edge_start) or not payload.endswith(edge_end)):
+        print_with_time("Start or end sign not matached!")
         return -1
 
     #remove the edges from the string first
@@ -92,8 +91,6 @@ def is_int(input_number, check_bound = False,low = 0, up = 65536):
                 return True
             else:
                 return False
-        else:
-            return False
         return True
     except:
         return False
