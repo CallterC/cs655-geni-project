@@ -50,6 +50,29 @@ class SubThread(threading.Thread):
             return True
         else:
             return False
+
+    def crack_pw(self, hash, start, end):
+        #return a list of index of inputed start
+        #invalid length
+        if(len(start) > 5 or len(end) > 5):
+            return "-1"
+
+        start_idx = get_idx_list_pw(start)
+        end_idx = get_idx_list_pw(end)
+        if(not checking_pw_range(start_idx,end_idx)):
+            return "-1"
+
+        #start to loop the hash, only ends when start and end are match and there is no interrupts(password found)
+        while(not compare_two_idx_list(start_idx,end_idx)):
+            #current hash
+            tmd5 = get_md5_from_list(start_idx)
+            if(tmd5 == hash):
+                return get_str_from_list(start_idx)
+            else:
+                #update the index
+                update_index_list(start_idx)
+        #no pw found
+        return "-1"
     def start_listen(self, connection, encoding = encoding, debug = debug):
         #first receive the payload from upper level
         payload = decode_payload_into_list(receive_all(connection, 1024), edge_start, edge_end, sep)
@@ -60,10 +83,17 @@ class SubThread(threading.Thread):
             #close the connection
             connection.close()
             #end the function
-            return
-
-
-
+            return -1
+        #extract the corresponding payloads
+        password_hash = payload[pw_idx]
+        pw_start_range = payload[range_start_idx]
+        pw_end_range = payload[range_end_idx]
+        #try to find the password
+        cracked_pw = self.crack_pw(password_hash,pw_start_range,pw_end_range)
+        #send the pw candidate to the upper level
+        send_msg(connection, cracked_pw.encode(encoding))
+        #close the connection
+        connection.close()
 
 
 #initialize the global variables
@@ -95,11 +125,23 @@ def run_listener():
         sock.bind((bind_address, bind_port))
     except:
         print_with_time("Error on binding port! Is there a server instance already running?")
+        return -1
+
+    sock.listen()
+    while(True):
+        # create the incoming connection once there is one
+        connection, address = sock.accept()
+        newthread = SubThread(connection)
+        newthread.start()
+        #self.start_listen(self,bind_address,bind_port, encoding, debug)
+        if(debug):
+            print_with_time('[Main] Submitted a new thread!')
 
     return sock
 
 # main method
 def main():
+    print(pw_range)
     print(decode_payload_into_list(b"<edge>password_md5<SEP>calc_range_start<SEP>calc_range_end(exclusive)<SEP>check_sum<edge>", edge_start, edge_end, sep, encoding))
 
     ## initialization, accept and update global variables.

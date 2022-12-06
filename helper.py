@@ -8,10 +8,12 @@ Helper Methods for both node and mgmt
 '''
 from datetime import datetime
 import hashlib
-
+from string import ascii_lowercase, ascii_uppercase
+from time import sleep
 
 global_timeout = 200.0
-
+#passwrod range
+pw_range = ascii_lowercase + ascii_uppercase
 
 #decode a byte string received into list of payloads
 def decode_payload_into_list(payload, edge_start, edge_end, sep, encoding = "utf-8"):
@@ -25,6 +27,61 @@ def decode_payload_into_list(payload, edge_start, edge_end, sep, encoding = "utf
     payload = payload[len(edge_start):len(payload) - len(edge_end)]
 
     return payload.split(sep)
+#return a list of index for inputed string in the pw
+def get_idx_list_pw(str):
+    res = []
+    for i in str:
+        try:
+            res.append(pw_range.index(i))
+        except:
+            res.append(-1)
+    return res
+
+#compare two index list
+def compare_two_idx_list(start, end):
+    for (a,b) in zip(start,end):
+        if(a != b):
+            return False
+    return True
+
+#check start and end index valid, the leading index of end should either equal or greater than the start
+def checking_pw_range(start, end):
+    for(a,b) in zip(start,end):
+        if(a < b):
+            return True
+        elif(a == b):
+            pass
+        else:
+            return False
+    #start and end are equal
+    return False
+#get md5 of a inputed index list
+def get_md5_from_list(idx_list):
+    return get_md5(get_str_from_list(idx_list))
+
+#get string from inputed index list
+def get_str_from_list(idx_list):
+    str = ""
+    for i in idx_list:
+        str += pw_range[i]
+    return str
+
+#check and update index list
+def update_index_list(idx_list, max_int = len(pw_range) - 1):
+    #add 1 to the last element first
+    idx_list[-1] = idx_list[-1] + 1
+    #update the remaining element if necessary
+
+    for i in reversed(range(len(idx_list))):
+        #get the current element first
+        ele = idx_list[i]
+        #set to 0 if it is equals to the max_int
+        if(ele == max_int):
+            idx_list[i] = 0
+        #update the previous one if current is not at index 0
+        if(i != 0):
+            idx_list[i-1] = idx_list[i-1] + 1
+    return idx_list
 
 #check if input is a valid integer within range. bounds are excluded
 def is_int(input_number, check_bound = False,low = 0, up = 65536):
@@ -110,3 +167,18 @@ def check_sum_ok(payload_list):
             return False
     except:
         return False
+
+#send provided to a given connection. it will wait [delay] amount of milisecond/ms before actually send the msg to client.
+#Note: This function does not check for input validity, make sure the inputed delay is an integer
+def send_msg(conn, payload, delay = 0):
+    if(not is_int(delay)):
+        print("Error! the provided delay is not an integer: ")
+        print(delay)
+        return -1
+    #avoid zero division error
+    if(delay == 0):
+        conn.sendall(payload)
+    else:
+        sleep(delay/1000)
+        conn.sendall(payload)
+    return 0
