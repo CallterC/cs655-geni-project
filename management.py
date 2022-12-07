@@ -11,6 +11,7 @@ This script requires the presence of helper.py to run. All configurations are co
 import sys, socket, threading, concurrent.futures
 import datetime
 from helper import *
+from flask import Flask, render_template, request, redirect, url_for
 
 collected_results = []
 hosts = [
@@ -50,7 +51,7 @@ def create_all_payloads(hash, number, encoding = encoding):
     return pay
 
 #run jobs
-def run_single_job(host, port, payload):
+def run_single_job(host, port, payload, timeout):
     global collected_results
     #create socket and connect to it
     conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -59,7 +60,7 @@ def run_single_job(host, port, payload):
     #send payload
     send_msg(conn,payload)
     #get result
-    res = receive_all(conn,1024)
+    res = receive_all(conn, 1024, "\n", 1024, encoding, timeout)
     collected_results.append(res)
     #close connection
     conn.close()
@@ -67,7 +68,7 @@ def run_single_job(host, port, payload):
     return res
 
 #I trust the assigned number will NOT BE LARGER than the nummber of hosts
-def run_jobs(hash, number, encoding = encoding):
+def run_jobs(hash, number, timeout, encoding = encoding):
     job_list = create_all_payloads(hash, number, encoding)
     tlist = []
     print_with_time("Creating threads...")
@@ -77,11 +78,11 @@ def run_jobs(hash, number, encoding = encoding):
         host = node[0]
         port = node[1]
         #create thread
-        threadX = threading.Thread(target=run_single_job, args=(host, port, job))
+        threadX = threading.Thread(target=run_single_job, args=(host, port, job, timeout))
         #add to thread list
         tlist.append(threadX)
     print_with_time("Running... This is going to take a long time")
-    print_with_time("Global timeout: " + str(global_timeout) + " seconds...")
+    print_with_time("Global timeout: " + str(timeout) + " seconds...")
     #start the threads and collect results
     for i in tlist:
         i.start()
@@ -105,12 +106,12 @@ def get_result_str():
     return res
 
 #run cracker
-def crack(provided_hash, provided_host_num):
+def crack(provided_hash, provided_host_num, timeout, encoding = encoding):
     #check if last one
     if(get_md5("ZZZZZ") == provided_hash):
         return "ZZZZZ"
     #run jobs
-    run_jobs(provided_hash, provided_host_num, encoding)
+    run_jobs(provided_hash, provided_host_num, timeout, encoding)
     #analyze results
     return get_result_str()
 
@@ -120,16 +121,42 @@ def main():
     provided_hash = "28ab351202b4d41d3fb4b368e3b544ac"
     # provided number of hosts number
     provided_host_num = 5
+    #time out value in seconds
+    time_out = 300
     if(provided_host_num > len(hosts)):
         print("Rejected, provided number of working nodes is greater than what limit.")
         return
     start = datetime.now()
-    print(crack(provided_hash, provided_host_num))
+    print(crack(provided_hash, provided_host_num, time_out, encoding))
     end = datetime.now()
     print("Total running time: ")
     print(end - start)
 
 
-#invoke the main function
-if __name__== "__main__":
-    main()
+app = Flask(__name__)
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    md5 = ""
+    numWorkers = ""
+    if request.method == 'POST':
+        md5 = request.form['md5']
+        numWorkers = request.form['workerNum']
+
+    #time out value in seconds
+    time_out = 300
+    if(is_int(numWorkers)):
+        numWorkers = int(numWorkers)
+    else:
+        print("Rejected, provide only integer number of working nodes...")
+    if(numWorkers > len(hosts)):
+        print("Rejected, provided number of working nodes is greater than what limit.")
+        return
+    start = datetime.now()
+    res = crack(md5, numWorkers, time_out, encoding)
+    end = datetime.now()
+    time = str(end - start)
+    return render_template('index.html', pwd=res, timeTaken=time)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)

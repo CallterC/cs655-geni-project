@@ -24,10 +24,8 @@ def decode_payload_into_list(payload, edge_start, edge_end, sep, encoding = "utf
     if(not payload.startswith(edge_start) or not payload.endswith(edge_end)):
         print_with_time("Start or end sign not matached!")
         return -1
-
     #remove the edges from the string first
     payload = payload[len(edge_start):len(payload) - len(edge_end)]
-
     return payload.split(sep)
 #return a list of index for inputed string in the pw
 def get_idx_list_pw(str):

@@ -16,7 +16,7 @@ from helper import *
 ### Global Variables ###
 script_name = "node.py"
 python_head = "python"
-debug = True
+debug = False
 sending_length = 1024
 ###payload related settings###
 '''
@@ -45,7 +45,6 @@ class SubThread(threading.Thread):
         self.listen_wrapper(self.connection, self.encoding, self.debug)
 
     def check_payload_ok(self, payload_list):
-        print(payload_list)
         if(payload_list == -1):
             print_with_time("Incorrect payload!")
             return False
@@ -83,13 +82,10 @@ class SubThread(threading.Thread):
         return -1
     def start_listen(self, connection, encoding = encoding, debug = debug):
         #first receive the payload from upper level
-        kkk = receive_all(connection, 1024)
-        print(kkk)
-        payload = decode_payload_into_list(kkk, edge_start, edge_end, sep)
+        payload = decode_payload_into_list(receive_all(connection, 1024), edge_start, edge_end, sep)
         if(debug):
             print("Payload received: ")
             print(payload)
-
         #check if payload invalid
         if(not self.check_payload_ok(payload)):
             #end the function immediagely
@@ -97,6 +93,9 @@ class SubThread(threading.Thread):
             print_with_time(payload)
             #end the function
             return -1
+        print_with_time("Current payload:")
+        print(payload)
+        print_with_time("Received a valid payload. Start to cracking password. This is going to take a long time (minutes).")
         #extract the corresponding payloads
         password_hash = payload[pw_idx]
         pw_start_range = payload[range_start_idx]
@@ -107,6 +106,7 @@ class SubThread(threading.Thread):
 
     def listen_wrapper(self, connection, encoding = encoding, debug = debug):
         res = self.start_listen(connection,encoding,debug)
+        print_with_time("A worker has finished and the result sent back.")
         if(debug):
             print("listener finished with the following result")
             print(res)
@@ -156,16 +156,12 @@ def run_listener():
         newthread = SubThread(connection)
         newthread.start()
         #self.start_listen(self,bind_address,bind_port, encoding, debug)
-        if(debug):
-            print_with_time('[Main] Submitted a new thread!')
+        print_with_time('[Main] Submitted a new thread!')
 
     return sock
 
 # main method
 def main():
-    print(pw_range)
-    print(decode_payload_into_list("<edge>password_md5<SEP>calc_range_start<SEP>calc_range_end(exclusive)<SEP>check_sum<edge>", edge_start, edge_end, sep, encoding))
-
     ## initialization, accept and update global variables.
     initialize()
     #pw main thread
