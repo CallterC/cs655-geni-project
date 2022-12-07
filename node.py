@@ -30,6 +30,7 @@ range_end_idx = 2
 chk_idx = 3
 
 ### Placeholder Variables ###
+#port will be override by the commandline argument
 bind_address = "0.0.0.0"
 bind_port = 9902
 
@@ -77,7 +78,7 @@ class SubThread(threading.Thread):
             else:
                 #update the index
                 start_idx = update_index_list(start_idx)
-                print(get_str_from_list(start_idx))
+                #print(get_str_from_list(start_idx))
         #no pw found
         return -1
     def start_listen(self, connection, encoding = encoding, debug = debug):

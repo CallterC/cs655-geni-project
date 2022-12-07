@@ -11,7 +11,7 @@ import hashlib
 from string import ascii_lowercase, ascii_uppercase
 from time import sleep
 
-global_timeout = 200.0
+global_timeout = 300.0
 #passwrod range
 pw_range = ascii_lowercase + ascii_uppercase
 sep = "<SEP>"
@@ -182,3 +182,28 @@ def send_msg(conn, payload, delay = 0):
         sleep(delay/1000)
         conn.sendall(payload)
     return 0
+
+#turn list index into integer
+def idx_list_to_int(idx_list):
+    let = len(pw_range)
+    leni = len(idx_list)
+    res = 0
+    for i in range(leni):
+        #get actual number
+        res += idx_list[i] * let**(leni - i - 1)
+    return res
+
+#turn integer into list idx
+def int_to_list_idx(num):
+    let = len(pw_range)
+    res = []
+    while(num != 0):
+        res.append(num % let)
+        num //= let
+    while(len(res) < 5):
+        res.append(0)
+    res.reverse()
+    return res
+
+
+
