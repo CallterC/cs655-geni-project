@@ -13,8 +13,11 @@ from time import sleep
 
 global_timeout = 200.0
 #passwrod range
-pw_range = " " +  ascii_lowercase + ascii_uppercase
-
+pw_range = ascii_lowercase + ascii_uppercase
+sep = "<SEP>"
+edge_start = "<START>"
+edge_end = "<END>\n"
+encoding = "utf-8"
 #decode a byte string received into list of payloads
 def decode_payload_into_list(payload, edge_start, edge_end, sep, encoding = "utf-8"):
     #check for payload integrity
@@ -66,7 +69,7 @@ def get_str_from_list(idx_list):
     return str
 
 #check and update index list
-def update_index_list(idx_list, max_int = len(pw_range) - 1):
+def update_index_list(idx_list, max_int = len(pw_range)):
     #add 1 to the last element first
     idx_list[-1] = idx_list[-1] + 1
     #update the remaining element if necessary
@@ -77,9 +80,9 @@ def update_index_list(idx_list, max_int = len(pw_range) - 1):
         #set to 0 if it is equals to the max_int
         if(ele == max_int):
             idx_list[i] = 0
-        #update the previous one if current is not at index 0
-        if(i != 0):
-            idx_list[i-1] = idx_list[i-1] + 1
+            #update the previous one if current is not at index 0
+            if(i != 0):
+                idx_list[i-1] = idx_list[i-1] + 1
     return idx_list
 
 #check if input is a valid integer within range. bounds are excluded

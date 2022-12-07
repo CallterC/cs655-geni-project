@@ -17,16 +17,13 @@ from helper import *
 script_name = "node.py"
 python_head = "python"
 debug = True
-encoding = "utf-8"
 sending_length = 1024
 ###payload related settings###
 '''
 formate of a complete payload
 <start>password_md5<SEP>calc_range_start<SEP>calc_range_end(exclusive)<SEP>check_sum<end>
 '''
-sep = "<SEP>"
-edge_start = "<START>"
-edge_end = "<END>\n"
+
 pw_idx = 0
 range_start_idx = 1
 range_end_idx = 2
@@ -79,7 +76,8 @@ class SubThread(threading.Thread):
                 return get_str_from_list(start_idx)
             else:
                 #update the index
-                update_index_list(start_idx)
+                start_idx = update_index_list(start_idx)
+                print(get_str_from_list(start_idx))
         #no pw found
         return -1
     def start_listen(self, connection, encoding = encoding, debug = debug):
