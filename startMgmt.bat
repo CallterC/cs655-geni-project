@@ -1,0 +1,2 @@
+python management.py
+@pause
