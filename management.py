@@ -12,15 +12,8 @@ import sys, socket, threading, concurrent.futures
 import datetime
 from helper import *
 from flask import Flask, render_template, request, redirect, url_for
-
+from hosts import *
 collected_results = []
-hosts = [
-    ["127.0.0.1", 9102],
-    ["127.0.0.1", 9101],
-    ["127.0.0.1", 9100],
-    ["127.0.0.1", 9103],
-    ["127.0.0.1", 9104]
-]
 
 #def assemble sinlge payload
 def create_single_payload(start, end, hash, encoding = encoding):
