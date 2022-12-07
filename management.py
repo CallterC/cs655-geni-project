@@ -108,46 +108,51 @@ def crack(provided_hash, provided_host_num, timeout, encoding = encoding):
     #analyze results
     return get_result_str()
 
-# main method
-def main():
-    # ZZZZY
-    provided_hash = "28ab351202b4d41d3fb4b368e3b544ac"
-    # provided number of hosts number
-    provided_host_num = 5
-    #time out value in seconds
-    time_out = 300
-    if(provided_host_num > len(hosts)):
-        print("Rejected, provided number of working nodes is greater than what limit.")
-        return
-    start = datetime.now()
-    print(crack(provided_hash, provided_host_num, time_out, encoding))
-    end = datetime.now()
-    print("Total running time: ")
-    print(end - start)
+# # main method
+# def main():
+#     # ZZZZY
+#     provided_hash = "28ab351202b4d41d3fb4b368e3b544ac"
+#     # provided number of hosts number
+#     provided_host_num = 5
+#     #time out value in seconds
+#     time_out = 300
+#     if(provided_host_num > len(hosts)):
+#         print("Rejected, provided number of working nodes is greater than what limit.")
+#         return
+#     start = datetime.now()
+#     print(crack(provided_hash, provided_host_num, time_out, encoding))
+#     end = datetime.now()
+#     print("Total running time: ")
+#     print(end - start)
 
 
 app = Flask(__name__)
-@app.route('/', methods=['GET', 'POST'])
-def index():
-    md5 = ""
-    numWorkers = ""
+@app.route('/', methods=('GET', 'POST'))
+
+def index(): 
+    md5 = None
+    numWorkers = None
     if request.method == 'POST':
         md5 = request.form['md5']
         numWorkers = request.form['workerNum']
-
+    
+    # commented for debug purposes, the 
     #time out value in seconds
-    time_out = 300
-    if(is_int(numWorkers)):
-        numWorkers = int(numWorkers)
-    else:
-        print("Rejected, provide only integer number of working nodes...")
-    if(numWorkers > len(hosts)):
-        print("Rejected, provided number of working nodes is greater than what limit.")
-        return
-    start = datetime.now()
-    res = crack(md5, numWorkers, time_out, encoding)
-    end = datetime.now()
-    time = str(end - start)
+    # time_out = 300
+    # if(is_int(numWorkers)):
+    #     numWorkers = int(numWorkers)
+    # else:
+    #     print("Rejected, provide only integer number of working nodes...")
+    # print(type(numWorkers))
+    # if(numWorkers > len(hosts)):
+    #     print("Rejected, provided number of working nodes is greater than what limit.")
+    #     return
+    # start = datetime.now()
+    # res = crack(md5, numWorkers, time_out, encoding)
+    # end = datetime.now()
+    # time = str(end - start)
+    res = md5
+    time = numWorkers
     return render_template('index.html', pwd=res, timeTaken=time)
 
 
