@@ -78,6 +78,10 @@ class SubThread(threading.Thread):
                 #update the index
                 start_idx = update_index_list(start_idx)
                 #print(get_str_from_list(start_idx))
+        #test the end index
+        tmd5 = get_md5_from_list(end_idx)
+        if(tmd5 == hash):
+            return get_str_from_list(end_idx)
         #no pw found
         return -1
     def start_listen(self, connection, encoding = encoding, debug = debug):

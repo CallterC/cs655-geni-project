@@ -86,6 +86,7 @@ def run_jobs(hash, number, timeout, encoding = encoding):
 
 #analyze results
 def get_result_str():
+    global collected_results
     print(collected_results)
     tio = False
     for i in collected_results:
@@ -96,13 +97,12 @@ def get_result_str():
     res = "No matched result found. Maybe the hash you provided is not in the range? "
     if(tio):
         res += "Some nodes has timed out, you may want to check your timeout settings."
+    ##reset the global list
+    collected_results = []
     return res
 
 #run cracker
 def crack(provided_hash, provided_host_num, timeout, encoding = encoding):
-    #check if last one
-    if(get_md5("ZZZZZ") == provided_hash):
-        return "ZZZZZ"
     #run jobs
     run_jobs(provided_hash, provided_host_num, timeout, encoding)
     #analyze results
@@ -149,7 +149,6 @@ def index():
             return render_template('index.html', pwd="Invalid input, please use integer for timeout value", timeTaken=time)
 
         res = crack(md5, numWorkers, tVal, encoding)
-    
     # commented for debug purposes, the 
     # time out value in seconds
     # time_out = 300
