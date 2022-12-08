@@ -132,12 +132,16 @@ app = Flask(__name__)
 def index(): 
     md5 = None
     numWorkers = None
+    tVal = None
+    res = None
+    time = None
     if request.method == 'POST':
         md5 = request.form['md5']
         numWorkers = request.form['workerNum']
+        tVal = request.form['timeoutVal']
     
     # commented for debug purposes, the 
-    #time out value in seconds
+    # time out value in seconds
     # time_out = 300
     # if(is_int(numWorkers)):
     #     numWorkers = int(numWorkers)
@@ -151,8 +155,7 @@ def index():
     # res = crack(md5, numWorkers, time_out, encoding)
     # end = datetime.now()
     # time = str(end - start)
-    res = md5
-    time = numWorkers
+
     return render_template('index.html', pwd=res, timeTaken=time)
 
 
