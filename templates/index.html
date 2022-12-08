@@ -9,10 +9,10 @@
             <p>Enter the timeout value <input type="number" name="timeoutVal" required/></p>
             <p><input type="submit" value="Submit" class="submitBtn"/></p>
             {% if pwd %}
-            <p>Here is your password: {{pwd}}</p> 
+            <p id="passw">Here is your password: {{pwd}}</p> 
             {% endif %}
             {% if timeTaken %}
-            <p>Time to crack the password: {{timeTaken}}</p>   
+            <p id="timet">Time to crack the password: {{timeTaken}}</p>   
             {% endif %}
             <p id="running">Calculating...</p>
         </form>
@@ -26,6 +26,12 @@
                     if($("#running").css('visibility') == 'hidden'){
                         $("#running").css('visibility', 'visible');
                     }
+                    if($("#passw").css('visibility') == 'visible'){
+                        $("#passw").css('visibility', 'hidden');
+                    }
+                    if($("#timet").css('visibility') == 'visible'){
+                        $("#timet").css('visibility', 'hidden');
+                    }
 
                     return true;
                 });
@@ -34,6 +40,12 @@
         <style>
             #running{
                 visibility: hidden;
+            }
+            #passw{
+                visibility: visible;
+            }
+            #timet{
+                visibility: visible;
             }
         </style>
     </body>
