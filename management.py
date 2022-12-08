@@ -91,6 +91,8 @@ def get_result_str():
     tio = False
     for i in collected_results:
         if(i != "-1\n" and i != -1):
+            ##reset the global list
+            collected_results = []
             return i[:-1]
         if(i == -1):
             print("Timeout")
