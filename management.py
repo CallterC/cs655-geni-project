@@ -92,6 +92,7 @@ def get_result_str():
         if(i != "-1\n" and i != -1):
             return i[:-1]
         if(i == -1):
+            print("Timeout")
             tio = True
     res = "No matched result found. Maybe the hash you provided is not in the range? "
     if(tio):
