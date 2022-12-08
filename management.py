@@ -139,6 +139,16 @@ def index():
         md5 = request.form['md5']
         numWorkers = request.form['workerNum']
         tVal = request.form['timeoutVal']
+        if(is_int(numWorkers)):
+            numWorkers = int(numWorkers)
+        else:
+            return render_template('index.html', pwd="Invalid input, please use integer for number of workers", timeTaken=time)
+        if (is_int(tVal)):
+            tVal = int(tVal)
+        else:
+            return render_template('index.html', pwd="Invalid input, please use integer for timeout value", timeTaken=time)
+
+        res = crack(md5, numWorkers, tVal, encoding)
     
     # commented for debug purposes, the 
     # time out value in seconds
