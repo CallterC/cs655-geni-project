@@ -1,5 +1,5 @@
 '''
-Author: Jinqi Lu
+Author: Jinqi Lu, Quansen Wang
 Prof. Matta
 CS 655 PA3 GENI-MINILAB
 Boston University
