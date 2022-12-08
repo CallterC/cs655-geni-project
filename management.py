@@ -156,24 +156,9 @@ def index():
         res = crack(md5, numWorkers, tVal, encoding)
         end = datetime.now()
         time = str(end - start)
-    # commented for debug purposes, the 
-    # time out value in seconds
-    # time_out = 300
-    # if(is_int(numWorkers)):
-    #     numWorkers = int(numWorkers)
-    # else:
-    #     print("Rejected, provide only integer number of working nodes...")
-    # print(type(numWorkers))
-    # if(numWorkers > len(hosts)):
-    #     print("Rejected, provided number of working nodes is greater than what limit.")
-    #     return
-    # start = datetime.now()
-    # res = crack(md5, numWorkers, time_out, encoding)
-    # end = datetime.now()
-    # time = str(end - start)
 
     return render_template('index.html', pwd=res, timeTaken=time)
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=5000)
