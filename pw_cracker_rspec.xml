@@ -1,0 +1,120 @@
+<rspec xmlns="http://www.geni.net/resources/rspec/3" xmlns:emulab="http://www.protogeni.net/resources/rspec/ext/emulab/1" xmlns:tour="http://www.protogeni.net/resources/rspec/ext/apt-tour/1" xmlns:jacks="http://www.protogeni.net/resources/rspec/ext/jacks/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.geni.net/resources/rspec/3    http://www.geni.net/resources/rspec/3/request.xsd" type="request">
+<node xmlns="http://www.geni.net/resources/rspec/3" client_id="management">
+<icon xmlns="http://www.protogeni.net/resources/rspec/ext/jacks/1" url="https://portal.geni.net/images/Xen-VM.svg"/>
+<site xmlns="http://www.protogeni.net/resources/rspec/ext/jacks/1" id="Site 1"/>
+<routable_control_ip xmlns="http://www.protogeni.net/resources/rspec/ext/emulab/1"/>
+<sliver_type xmlns="http://www.geni.net/resources/rspec/3" name="emulab-xen">
+<disk_image xmlns="http://www.geni.net/resources/rspec/3" name="urn:publicid:IDN+emulab.net+image+emulab-ops:UBUNTU20-64-STD"/>
+</sliver_type>
+<services xmlns="http://www.geni.net/resources/rspec/3">
+<execute xmlns="http://www.geni.net/resources/rspec/3" command="sudo /usr/bin/wget https://www.asleague.org/res/temp/cs655/scripts/setup_mgmt.sh -O /root/setup_mgmt.sh; sudo /usr/bin/chmod +x /root/setup_mgmt.sh; sudo /root/setup_mgmt.sh" shell="/bin/sh"/>
+</services>
+<interface xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-1">
+<ip xmlns="http://www.geni.net/resources/rspec/3" address="10.170.47.10" type="ipv4" netmask="255.255.255.0"/>
+</interface>
+</node>
+<node xmlns="http://www.geni.net/resources/rspec/3" client_id="worker-1">
+<icon xmlns="http://www.protogeni.net/resources/rspec/ext/jacks/1" url="https://portal.geni.net/images/Xen-VM.svg"/>
+<site xmlns="http://www.protogeni.net/resources/rspec/ext/jacks/1" id="Site 1"/>
+<sliver_type xmlns="http://www.geni.net/resources/rspec/3" name="emulab-xen">
+<disk_image xmlns="http://www.geni.net/resources/rspec/3" name="urn:publicid:IDN+emulab.net+image+emulab-ops:UBUNTU20-64-STD"/>
+</sliver_type>
+<services xmlns="http://www.geni.net/resources/rspec/3">
+<execute xmlns="http://www.geni.net/resources/rspec/3" command="sudo /usr/bin/wget https://www.asleague.org/res/temp/cs655/scripts/setup_node.sh -O /root/setup_node.sh; sudo /usr/bin/chmod +x /root/setup_node.sh; sudo /root/setup_node.sh" shell="/bin/sh"/>
+</services>
+<interface xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-0">
+<ip xmlns="http://www.geni.net/resources/rspec/3" address="10.170.47.11" type="ipv4" netmask="255.255.255.0"/>
+</interface>
+</node>
+<node xmlns="http://www.geni.net/resources/rspec/3" client_id="worker-2">
+<icon xmlns="http://www.protogeni.net/resources/rspec/ext/jacks/1" url="https://portal.geni.net/images/Xen-VM.svg"/>
+<site xmlns="http://www.protogeni.net/resources/rspec/ext/jacks/1" id="Site 1"/>
+<sliver_type xmlns="http://www.geni.net/resources/rspec/3" name="emulab-xen">
+<disk_image xmlns="http://www.geni.net/resources/rspec/3" name="urn:publicid:IDN+emulab.net+image+emulab-ops:UBUNTU20-64-STD"/>
+</sliver_type>
+<services xmlns="http://www.geni.net/resources/rspec/3">
+<execute xmlns="http://www.geni.net/resources/rspec/3" command="sudo /usr/bin/wget https://www.asleague.org/res/temp/cs655/scripts/setup_node.sh -O /root/setup_node.sh; sudo /usr/bin/chmod +x /root/setup_node.sh; sudo /root/setup_node.sh" shell="/bin/sh"/>
+</services>
+<interface xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-2">
+<ip xmlns="http://www.geni.net/resources/rspec/3" address="10.170.47.12" type="ipv4" netmask="255.255.255.0"/>
+</interface>
+</node>
+<node xmlns="http://www.geni.net/resources/rspec/3" client_id="worker-3">
+<icon xmlns="http://www.protogeni.net/resources/rspec/ext/jacks/1" url="https://portal.geni.net/images/Xen-VM.svg"/>
+<site xmlns="http://www.protogeni.net/resources/rspec/ext/jacks/1" id="Site 1"/>
+<sliver_type xmlns="http://www.geni.net/resources/rspec/3" name="emulab-xen">
+<disk_image xmlns="http://www.geni.net/resources/rspec/3" name="urn:publicid:IDN+emulab.net+image+emulab-ops:UBUNTU20-64-STD"/>
+</sliver_type>
+<services xmlns="http://www.geni.net/resources/rspec/3">
+<execute xmlns="http://www.geni.net/resources/rspec/3" command="sudo /usr/bin/wget https://www.asleague.org/res/temp/cs655/scripts/setup_node.sh -O /root/setup_node.sh; sudo /usr/bin/chmod +x /root/setup_node.sh; sudo /root/setup_node.sh" shell="/bin/sh"/>
+</services>
+<interface xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-3">
+<ip xmlns="http://www.geni.net/resources/rspec/3" address="10.170.47.13" type="ipv4" netmask="255.255.255.0"/>
+</interface>
+</node>
+<node xmlns="http://www.geni.net/resources/rspec/3" client_id="worker-4">
+<icon xmlns="http://www.protogeni.net/resources/rspec/ext/jacks/1" url="https://portal.geni.net/images/Xen-VM.svg"/>
+<site xmlns="http://www.protogeni.net/resources/rspec/ext/jacks/1" id="Site 1"/>
+<sliver_type xmlns="http://www.geni.net/resources/rspec/3" name="emulab-xen">
+<disk_image xmlns="http://www.geni.net/resources/rspec/3" name="urn:publicid:IDN+emulab.net+image+emulab-ops:UBUNTU20-64-STD"/>
+</sliver_type>
+<services xmlns="http://www.geni.net/resources/rspec/3">
+<execute xmlns="http://www.geni.net/resources/rspec/3" command="sudo /usr/bin/wget https://www.asleague.org/res/temp/cs655/scripts/setup_node.sh -O /root/setup_node.sh; sudo /usr/bin/chmod +x /root/setup_node.sh; sudo /root/setup_node.sh" shell="/bin/sh"/>
+</services>
+<interface xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-4">
+<ip xmlns="http://www.geni.net/resources/rspec/3" address="10.170.47.14" type="ipv4" netmask="255.255.255.0"/>
+</interface>
+</node>
+<node xmlns="http://www.geni.net/resources/rspec/3" client_id="worker-5">
+<icon xmlns="http://www.protogeni.net/resources/rspec/ext/jacks/1" url="https://portal.geni.net/images/Xen-VM.svg"/>
+<site xmlns="http://www.protogeni.net/resources/rspec/ext/jacks/1" id="Site 1"/>
+<sliver_type xmlns="http://www.geni.net/resources/rspec/3" name="emulab-xen">
+<disk_image xmlns="http://www.geni.net/resources/rspec/3" name="urn:publicid:IDN+emulab.net+image+emulab-ops:UBUNTU20-64-STD"/>
+</sliver_type>
+<services xmlns="http://www.geni.net/resources/rspec/3">
+<execute xmlns="http://www.geni.net/resources/rspec/3" command="sudo /usr/bin/wget https://www.asleague.org/res/temp/cs655/scripts/setup_node.sh -O /root/setup_node.sh; sudo /usr/bin/chmod +x /root/setup_node.sh; sudo /root/setup_node.sh" shell="/bin/sh"/>
+</services>
+<interface xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-5">
+<ip xmlns="http://www.geni.net/resources/rspec/3" address="10.170.47.15" type="ipv4" netmask="255.255.255.0"/>
+</interface>
+</node>
+<link xmlns="http://www.geni.net/resources/rspec/3" client_id="link-0">
+<interface_ref xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-0"/>
+<interface_ref xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-1"/>
+<interface_ref xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-2"/>
+<interface_ref xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-3"/>
+<interface_ref xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-4"/>
+<interface_ref xmlns="http://www.geni.net/resources/rspec/3" client_id="interface-5"/>
+<site xmlns="http://www.protogeni.net/resources/rspec/ext/jacks/1" id="undefined"/>
+<property xmlns="http://www.geni.net/resources/rspec/3" source_id="interface-0" dest_id="interface-1" capacity="100000"/>
+<property xmlns="http://www.geni.net/resources/rspec/3" source_id="interface-0" dest_id="interface-2" capacity="100000"/>
+<property xmlns="http://www.geni.net/resources/rspec/3" source_id="interface-0" dest_id="interface-3" capacity="100000"/>
+<property xmlns="http://www.geni.net/resources/rspec/3" source_id="interface-0" dest_id="interface-4" capacity="100000"/>
+<property xmlns="http://www.geni.net/resources/rspec/3" source_id="interface-0" dest_id="interface-5" capacity="100000"/>
+<property xmlns="http://www.geni.net/resources/rspec/3" source_id="interface-1" dest_id="interface-0" capacity="100000"/>
+<property xmlns="http://www.geni.net/resources/rspec/3" source_id="interface-1" dest_id="interface-2" capacity="100000"/>
+<property xmlns="http://www.geni.net/resources/rspec/3" source_id="interface-1" dest_id="interface-3" capacity="100000"/>
+<property xmlns="http://www.geni.net/resources/rspec/3" source_id="interface-1" dest_id="interface-4" capacity="100000"/>
+<property xmlns="http://www.geni.net/resources/rspec/3" source_id="interface-1" dest_id="interface-5" capacity="100000"/>
+<property xmlns="http://www.geni.net/resources/rspec/3" source_id="interface-2" dest_id="interface-0" capacity="100000"/>
+<property xmlns="http://www.geni.net/resources/rspec/3" source_id="interface-2" dest_id="interface-1" capacity="100000"/>
+<property xmlns="http://www.geni.net/resources/rspec/3" source_id="interface-2" dest_id="interface-3" capacity="100000"/>
+<property xmlns="http://www.geni.net/resources/rspec/3" source_id="interface-2" dest_id="interface-4" capacity="100000"/>
+<property xmlns="http://www.geni.net/resources/rspec/3" source_id="interface-2" dest_id="interface-5" capacity="100000"/>
+<property xmlns="http://www.geni.net/resources/rspec/3" source_id="interface-3" dest_id="interface-0" capacity="100000"/>
+<property xmlns="http://www.geni.net/resources/rspec/3" source_id="interface-3" dest_id="interface-1" capacity="100000"/>
+<property xmlns="http://www.geni.net/resources/rspec/3" source_id="interface-3" dest_id="interface-2" capacity="100000"/>
+<property xmlns="http://www.geni.net/resources/rspec/3" source_id="interface-3" dest_id="interface-4" capacity="100000"/>
+<property xmlns="http://www.geni.net/resources/rspec/3" source_id="interface-3" dest_id="interface-5" capacity="100000"/>
+<property xmlns="http://www.geni.net/resources/rspec/3" source_id="interface-4" dest_id="interface-0" capacity="100000"/>
+<property xmlns="http://www.geni.net/resources/rspec/3" source_id="interface-4" dest_id="interface-1" capacity="100000"/>
+<property xmlns="http://www.geni.net/resources/rspec/3" source_id="interface-4" dest_id="interface-2" capacity="100000"/>
+<property xmlns="http://www.geni.net/resources/rspec/3" source_id="interface-4" dest_id="interface-3" capacity="100000"/>
+<property xmlns="http://www.geni.net/resources/rspec/3" source_id="interface-4" dest_id="interface-5" capacity="100000"/>
+<property xmlns="http://www.geni.net/resources/rspec/3" source_id="interface-5" dest_id="interface-0" capacity="100000"/>
+<property xmlns="http://www.geni.net/resources/rspec/3" source_id="interface-5" dest_id="interface-1" capacity="100000"/>
+<property xmlns="http://www.geni.net/resources/rspec/3" source_id="interface-5" dest_id="interface-2" capacity="100000"/>
+<property xmlns="http://www.geni.net/resources/rspec/3" source_id="interface-5" dest_id="interface-3" capacity="100000"/>
+<property xmlns="http://www.geni.net/resources/rspec/3" source_id="interface-5" dest_id="interface-4" capacity="100000"/>
+</link>
+</rspec>
