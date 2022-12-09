@@ -1,0 +1,17 @@
+[Unit]
+Description=Auto run md5 node server on startup
+After=default.target
+
+
+[Service]
+Type=simple
+WorkingDirectory=/usr/local/md5_node/
+ExecStart=/bin/bash run_node.sh
+KillSignal=SIGQUIT
+KillMode=process
+StandardOutput=syslog
+StandardError=inherit
+ExecStop=
+
+[Install]
+WantedBy=default.target
